@@ -1,5 +1,4 @@
-
-
+# Import libraries 
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -8,20 +7,11 @@ from pathlib import Path
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import (
-    accuracy_score,
-    precision_score,
-    recall_score,
-    f1_score,
-    confusion_matrix,
-    classification_report,
-    ConfusionMatrixDisplay
-)
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report, ConfusionMatrixDisplay
+
 
 # 1. Load Dataset
-
 print("\nLoading Breast Cancer Dataset...")
-
 data = load_breast_cancer()
 
 X = pd.DataFrame(data.data, columns=data.feature_names)
@@ -34,9 +24,7 @@ print("\nTarget Classes:")
 print(data.target_names)
 
 # 2. Dataset Information
-
 print("\nDataset Information:")
-
 print("Number of samples:", X.shape[0])
 print("Number of features:", X.shape[1])
 
@@ -46,51 +34,27 @@ print("\nClass Distribution:")
 print(y.value_counts().rename(index={0: "Malignant", 1: "Benign"}))
 
 # 3. Train-Test Split
-
-X_train, X_test, y_train, y_test = train_test_split(
-    X,
-    y,
-    test_size=0.20,
-    random_state=42,
-    stratify=y
-)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42, stratify=y)
 
 print("\nTraining samples:", X_train.shape[0])
 print("Testing samples:", X_test.shape[0])
 
 # 4. Train Decision Tree Model
-
 print("\nTraining Decision Tree Model...")
 
-model = DecisionTreeClassifier(
-    criterion="gini",
-    max_depth=4,
-    random_state=42
-)
-
+model = DecisionTreeClassifier(criterion="gini", max_depth=4, random_state=42)
 model.fit(X_train, y_train)
 
 print("Model trained successfully!")
 
 # 5. Make Predictions
-
 y_pred = model.predict(X_test)
 
 # 6. Model Evaluation
-
 accuracy = accuracy_score(y_test, y_pred)
-
-precision = precision_score(
-    y_test, y_pred, zero_division=0
-)
-
-recall = recall_score(
-    y_test, y_pred, zero_division=0
-)
-
-f1 = f1_score(
-    y_test, y_pred, zero_division=0
-)
+precision = precision_score(y_test, y_pred, zero_division=0)
+recall = recall_score(y_test, y_pred, zero_division=0)
+f1 = f1_score(y_test, y_pred, zero_division=0)
 
 print("\n========== MODEL PERFORMANCE ==========")
 
@@ -100,7 +64,6 @@ print(f"Recall    : {recall:.4f}")
 print(f"F1 Score  : {f1:.4f}")
 
 # 7. Classification Report
-
 print("\nClassification Report:")
 
 print(
@@ -115,8 +78,6 @@ print(
 
 
 # 8. Confusion Matrix
-
-
 cm = confusion_matrix(y_test, y_pred)
 
 print("\nConfusion Matrix:")
