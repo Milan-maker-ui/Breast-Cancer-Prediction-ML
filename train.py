@@ -9,7 +9,6 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix, classification_report, ConfusionMatrixDisplay
 
-
 # 1. Load Dataset
 print("\nLoading Breast Cancer Dataset...")
 data = load_breast_cancer()
@@ -86,48 +85,25 @@ print(cm)
 output_dir = Path(__file__).resolve().parents[1] / "outputs"
 output_dir.mkdir(exist_ok=True)
 
-display = ConfusionMatrixDisplay(
-    confusion_matrix=cm,
-    display_labels=data.target_names
-)
-
-display.plot(
-    cmap="Blues",
-    values_format="d"
-)
+display = ConfusionMatrixDisplay(confusion_matrix=cm, display_labels=data.target_names)
+display.plot(cmap="Blues", values_format="d")
 
 plt.title("Breast Cancer Prediction - Confusion Matrix")
 plt.tight_layout()
-
-plt.savefig(
-    output_dir / "confusion_matrix.png",
-    dpi=150
-)
-
+plt.savefig(output_dir / "confusion_matrix.png", dpi=150)
 plt.show()
 plt.close()
-
-
 
 # 9. Feature Importance
 
 
-feature_importance = pd.DataFrame({
-    "Feature": X.columns,
-    "Importance": model.feature_importances_
-})
-
-feature_importance = feature_importance.sort_values(
-    by="Importance",
-    ascending=False
-)
+feature_importance = pd.DataFrame({"Feature": X.columns, "Importance": model.feature_importances_}) 
+feature_importance = feature_importance.sort_values(by="Importance", ascending=False)
 
 print("\nTop 10 Important Features:")
-
 print(feature_importance.head(10).to_string(index=False))
 
 plt.figure(figsize=(10, 7))
-
 plt.barh(
     feature_importance.head(10)["Feature"][::-1],
     feature_importance.head(10)["Importance"][::-1]
@@ -136,18 +112,10 @@ plt.barh(
 plt.xlabel("Importance")
 plt.ylabel("Features")
 plt.title("Top 10 Important Features")
-
 plt.tight_layout()
-
-plt.savefig(
-    output_dir / "feature_importance.png",
-    dpi=150
-)
-
+plt.savefig(output_dir / "feature_importance.png", dpi=150)
 plt.show()
 plt.close()
-
-
 
 # 10. Sample Prediction
 
