@@ -118,10 +118,7 @@ plt.show()
 plt.close()
 
 # 10. Sample Prediction
-
-
 sample = X_test.iloc[[0]]
-
 prediction = model.predict(sample)[0]
 
 print("\n========== SAMPLE PREDICTION ==========")
@@ -132,8 +129,6 @@ print("Actual Diagnosis:", data.target_names[y_test.iloc[0]])
 
 
 # 11. Final Summary
-
-
 print("\n========== PROJECT SUMMARY ==========")
 
 print("Project: Breast Cancer Prediction")
